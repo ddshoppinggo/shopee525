@@ -9,6 +9,7 @@
     body {
       font-family: "Arial", sans-serif;
       color: #333;
+      background-color: #f8f8f8;
     }
     .background {
       position: fixed;
@@ -43,7 +44,10 @@
     }
     .subtitle {
       font-size: 1.1em;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
+    }
+    .code-section {
+      margin-bottom: 30px;
     }
     button {
       font-size: 1em;
@@ -71,6 +75,25 @@
     a:hover {
       text-decoration: underline;
     }
+
+    /* 複製成功提示樣式 */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      z-index: 999;
+    }
+    .toast.show {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -79,27 +102,24 @@
   <div class="overlay"></div>
 
   <div class="content">
-    <h1>🦐蝦皮全站折扣碼 </h1>
+    <h1>🦐蝦皮全站折扣碼</h1>
     <p class="subtitle">點擊按鈕自動複製折扣碼，貼上即可領券</p>
-     
-  </div>
-    <div class="content">
-    <p><strong style="color:red">全站100-20券</strong></p>
-    <button onclick="copyCode('SBFAFC20')">複製折扣碼</button>
-  </div>
-    
- <div class="content">
-   <p><strong style="color:red">全站490-50券</strong></p>
-    <button onclick="copyCode('SBFAFC50')">複製折扣碼</button>
-  </div>
 
-   <div class="content">
-   <p><strong style="color:red">5/25開放使用</strong></p>
-    <button onclick="copyCode('SHAF25SP')">全站100-20</button>
-     <button onclick="copyCode('NR6WGBSYV7')">全站299-30</button>
-  </div>
+    <section class="code-section">
+      <p><strong style="color:red">全站100-20券</strong></p>
+      <button onclick="copyCode('SBFAFC20')">複製折扣碼</button>
+    </section>
 
+    <section class="code-section">
+      <p><strong style="color:red">全站490-50券</strong></p>
+      <button onclick="copyCode('SBFAFC50')">複製折扣碼</button>
+    </section>
 
+    <section class="code-section">
+      <p><strong style="color:red">5/25開放使用</strong></p>
+      <button onclick="copyCode('SHAF25SP')">全站100-20</button>
+      <button onclick="copyCode('NR6WGBSYV7')">全站299-30</button>
+    </section>
 
     <p class="section-title">歡迎加入我的省錢社群：</p>
     <p>
@@ -109,15 +129,25 @@
     </p>
   </div>
 
- <script>
+  <!-- 成功提示 -->
+  <div class="toast" id="toast">折扣碼已複製！</div>
+
+  <script>
     function copyCode(code) {
-      const el = document.createElement('textarea');
-      el.value = code;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
-      window.location.href = 'https://s.shopee.tw/9UoF7x28IG';
+      navigator.clipboard.writeText(code).then(() => {
+        showToast();
+        setTimeout(() => {
+          window.location.href = 'https://s.shopee.tw/9UoF7x28IG';
+        }, 1000); // 延遲 1 秒跳轉
+      });
+    }
+
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 1500); // 顯示 1.5 秒後淡出
     }
   </script>
 </body>
