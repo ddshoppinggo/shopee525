@@ -52,7 +52,7 @@
     button {
       font-size: 1em;
       padding: 10px 20px;
-      margin: 8px;
+      margin: 4px; /* 行距縮小 */
       background-color: #ee4d2d;
       color: white;
       border: none;
@@ -138,7 +138,7 @@
         showToast();
         setTimeout(() => {
           window.location.href = 'https://s.shopee.tw/9UoF7x28IG';
-        }, 1000); // 延遲 1 秒跳轉
+        }, 400); // 跳轉延遲 0.4 秒
       });
     }
 
@@ -147,7 +147,7 @@
       toast.classList.add('show');
       setTimeout(() => {
         toast.classList.remove('show');
-      }, 1500); // 顯示 1.5 秒後淡出
+      }, 1200); // 顯示時間 1.2 秒
     }
   </script>
 </body>
